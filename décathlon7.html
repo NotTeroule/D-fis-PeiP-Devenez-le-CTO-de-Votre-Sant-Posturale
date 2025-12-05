@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Profil Sportif — QCM, Instructions & Illustrations</title>
+<style>
+  :root{
+    --primary:#5a7dff;
+    --card-bg:#ffffff;
+    --muted:#6b7280;
+    --glass: rgba(255,255,255,0.6);
+  }
+  body{
+    font-family: "Segoe UI", Roboto, sans-serif;
+    margin:0;
+    background: linear-gradient(135deg,#c2e9fb 0%,#81a4fd 100%);
+    color:#111827;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{
+    text-align:center;
+    padding:28px 16px;
+    color:#fff;
+  }
+  .container{
+    max-width:1100px;
+    margin:20px auto;
+    background:var(--card-bg);
+    border-radius:14px;
+    padding:18px;
+    box-shadow: 0 20px 40px rgba(12,24,60,0.12);
+  }
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr 360px;
+    gap:18px;
+  }
+  @media (max-width:980px){ .grid{ grid-template-columns: 1fr; } }
+  .qcm{
+    padding:12px;
+  }
+  .question{
+    background:#f7f9ff;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    border-left:6px solid var(--primary);
+  }
+  label{ display:block; margin:6px 0; cursor:pointer; }
+  .btn{
+    width:100%;
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:12px 14px;
+    border-radius:12px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:8px;
+  }
+  .result{
+    display:none;
+    margin-top:12px;
+  }
+  .card{
+    background:#fff;
+    border-radius:12px;
+    padding:12px;
+    box-shadow: 0 8px 24px rgba(12,24,60,0.06);
+    border-left:6px solid var(--primary);
+  }
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
+    margin-top:10px;
+  }
+  .profile-avatar{
+    width:72px; height:72px;
+    border-radius:50%;
+    background:var(--primary);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:2rem; margin:0 auto 8px;
+  }
+  .tag{ display:inline-block; background:#eef2ff; color:#2743d8; padding:6px 10px; border-radius:20px; margin:4px; font-size:.85rem; }
+
+  /* Instructions area */
+  .instructions { margin-top:12px; }
+  .movement {
+    display:flex; gap:12px; align-items:flex-start;
+  }
+  .svg-box{ width:160px; height:160px; display:flex; align-items:center; justify-content:center; }
+  .step{ margin-bottom:8px; padding:8px; border-radius:8px; background:#fbfdff; border:1px solid #eef3ff; }
+
+  /* Simple animation for posture guide */
+  .animate-updown { animation: floaty 1.6s ease-in-out infinite; transform-origin:center; }
+  @keyframes floaty { 0%{ transform: translateY(0);}50%{ transform: translateY(-6px);}100%{ transform: translateY(0);} }
+
+  /* Product list */
+  .products { display:grid; gap:10px; margin-top:10px; }
+  .product { display:flex; gap:10px; align-items:center; padding:8px; border-radius:10px; border:1px dashed #e6eefc; background:#fbfdff; }
+  .product img{ width:64px; height:64px; object-fit:cover; border-radius:8px; }
+
+  /* small helpers */
+  .muted{ color:var(--muted); font-size:.9rem; }
+  .small{ font-size:.85rem; color:#374151; }
+
+  /* footer */
+  footer{ text-align:center; font-size:.85rem; color:#374151; margin-top:18px; padding:8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🧭 Assistant Profil Sportif — QCM & Guide</h1>
+  <p style="opacity:.95">Réponds au QCM, choisis un mouvement pour recevoir des instructions détaillées, une illustration et du matos recommandé.</p>
+</header>
+
+<div class="container">
+  <div class="grid">
+
+    <!-- LEFT: QCM + actions -->
+    <div>
+      <form id="qcm" class="qcm" onsubmit="return false;">
+        <div class="question">
+          <strong>1) Niveau</strong>
+          <label><input type="radio" name="niveau" value="Débutant"> Débutant</label>
+          <label><input type="radio" name="niveau" value="Intermédiaire"> Intermédiaire</label>
+          <label><input type="radio" name="niveau" value="Avancé"> Avancé</label>
+        </div>
+
+        <div class="question">
+          <strong>2) Sport principal</strong>
+          <label><input type="radio" name="sport" value="Musculation"> Musculation</label>
+          <label><input type="radio" name="sport" value="Course"> Course</label>
+          <label><input type="radio" name="sport" value="Yoga"> Yoga</label>
+          <label><input type="radio" name="sport" value="Cyclisme"> Cyclisme</label>
+          <label><input type="radio" name="sport" value="Natation"> Natation</label>
+        </div>
+
+        <div class="question">
+          <strong>3) Objectif</strong>
+          <label><input type="radio" name="objectif" value="Renforcement"> Renforcement</label>
+          <label><input type="radio" name="objectif" value="Perte de poids"> Perte de poids</label>
+          <label><input type="radio" name="objectif" value="Souplesse"> Souplesse</label>
+          <label><input type="radio" name="objectif" value="Performance"> Performance</label>
+          <label><input type="radio" name="objectif" value="Bien-être"> Bien-être</label>
+        </div>
+
+        <div class="question">
+          <strong>4) Séances / semaine</strong>
+          <label><input type="radio" name="seances" value="1-2"> 1–2</label>
+          <label><input type="radio" name="seances" value="3-4"> 3–4</label>
+          <label><input type="radio" name="seances" value="5+"> 5+</label>
+        </div>
+
+        <div class="question">
+          <strong>5) Motivation</strong>
+          <label><input type="radio" name="motivation" value="Faible"> Faible</label>
+          <label><input type="radio" name="motivation" value="Moyenne"> Moyenne</label>
+          <label><input type="radio" name="motivation" value="Élevée"> Élevée</label>
+        </div>
+
+        <button class="btn" type="button" onclick="genererProfil()">1 — Générer mon profil</button>
+      </form>
+
+      <!-- mouvement selection (niveau 2) -->
+      <div id="mouvementsArea" class="card" style="margin-top:12px; display:none;">
+        <h3>2 — Choisis un mouvement (Instructions)</h3>
+        <div id="mouvementsList" class="small"></div>
+        <div style="margin-top:8px;">
+          <label for="movementSelect" class="muted">Mouvement :</label>
+          <select id="movementSelect" style="width:100%; padding:8px; border-radius:8px;">
+            <option value="">— choisir —</option>
+          </select>
+          <button class="btn" style="margin-top:8px;" onclick="afficherInstruction()">Voir instructions & illustrations</button>
+        </div>
+      </div>
+
+      <!-- export simple -->
+      <div style="margin-top:12px;">
+        <button class="btn" onclick="exportJSON()" style="background:#16a34a;">💾 Exporter le profil (JSON)</button>
+      </div>
+
+      <div id="err" class="muted" style="margin-top:8px;"></div>
+    </div>
+
+    <!-- RIGHT: Résultat / instructions / illustrations / produits -->
+    <div>
+      <div id="resultPanel" class="card" style="display:none;">
+        <div class="profile-avatar" id="avatarIcon">🏃</div>
+        <h2 id="profileTitle">Profil</h2>
+        <div id="tagsRow"></div>
+
+        <div id="summary" class="small muted" style="margin-top:8px;"></div>
+
+        <div id="instructionsArea" class="instructions" style="margin-top:12px; display:none;">
+          <h3>Instructions détaillées</h3>
+          <div id="instructionText" class="step"></div>
+
+          <h3 style="margin-top:10px;">Illustration & visualisation</h3>
+          <div id="illustration" class="movement"></div>
+
+          <h3 style="margin-top:10px;">Conseils pratiques</h3>
+          <div id="practicalTips" class="small"></div>
+
+          <h3 style="margin-top:10px;">Produits recommandés</h3>
+          <div id="productList" class="products"></div>
+        </div>
+      </div>
+
+      <!-- niveau 3 mini visual guide (visible après choix) -->
+      <div id="visualHelp" style="margin-top:12px;"></div>
+    </div>
+
+  </div> <!-- /grid -->
+
+  <footer>
+    Niveau 1 → Profilage • Niveau 2 → Instructions personnalisées • Niveau 3 → Illustrations • Niveau 4 → Produits Decathlon suggérés
+  </footer>
+</div>
+
+<script>
+/* ---------- Données métier ---------- */
+const movementsBySport = {
+  "Musculation": [
+    { id:"squat", name:"Squat (jambes)", keyPoints:[
+      "Pieds largeur des épaules, genoux alignés",
+      "Descendre en gardant le buste droit",
+      "Regarder l'horizon, pousser dans les talons pour remonter"
+    ]},
+    { id:"deadlift", name:"Soulevé de terre", keyPoints:[
+      "Dos plat, regard neutre",
+      "Hanches en arrière, serrer les fessiers en montée",
+      "Garder barre proche des tibias"
+    ]},
+    { id:"push", name:"Développé couché (push)", keyPoints:[
+      "Appuis fermes, épaules stabilisées",
+      "Descendre la barre sous contrôle",
+      "Pousser de façon explosive sans bloquer coudes"
+    ]}
+  ],
+  "Course": [
+    { id:"cadence", name:"Travail de cadence", keyPoints:[
+      "Cadence cible ~170-190 pas/min (selon niveau)",
+      "Petites foulées, cadence confortable",
+      "Regarde en avant, posture droite"
+    ]},
+    { id:"fartlek", name:"Séance fractionnée (Fartlek)", keyPoints:[
+      "Alterner effort intense / récup active",
+      "Échauffement 10-15 min avant",
+      "Récupération active 8-10min après"
+    ]}
+  ],
+  "Yoga": [
+    { id:"downward", name:"Chien tête en bas (Adho Mukha Svanasana)", keyPoints:[
+      "Mains écartées largeur d'épaules",
+      "Talons tendent vers le sol",
+      "Respirer calmement, allonger la colonne"
+    ]},
+    { id:"plank", name:"Planche (core)", keyPoints:[
+      "Alignement tête→talons",
+      "Ne creuser pas le dos, activer gainage",
+      "Respiration contrôlée"
+    ]}
+  ],
+  "Cyclisme": [
+    { id:"cadenceCycle", name:"Travail de cadence (pédalage)", keyPoints:[
+      "Cible 80-100 RPM",
+      "Position neutre, buste détendu",
+      "Utiliser pignons pour maintenir cadence"
+    ]},
+    { id:"seatedSprint", name:"Sprint assis", keyPoints:[
+      "Repos complet avant l'effort",
+      "Poussée explosive, rester fluide",
+      "Récupération active après"
+    ]}
+  ],
+  "Natation": [
+    { id:"catch", name:"Allongement & prise d'eau (catch)", keyPoints:[
+      "Entrée de la main devant l'épaule",
+      "Étendre la main puis tirer en S",
+      "Regarder légèrement sur le côté pour respirer"
+    ]},
+    { id:"kick", name:"Battement jambes (kick)", keyPoints:[
+      "Mouvement fluide de la hanche",
+      "Chevilles souples, pointes des pieds",
+      "Gainage du tronc pour stabilité"
+    ]}
+  ]
+};
+
+/* Produits Decathlon recommandés par sport (noms + domaine pour citation) */
+const productsBySport = {
+  "Yoga": [
+    {title:"Tapis de Yoga antidérapant", img:"https://contents.mediadecathlon.com/p2178069/k$8c6d1e5f6a2870b5a78a2b1c94f0b8c7/sq/tapis-de-yoga-antiderapant.jpg", note:"tapis épais & adhérent" , ref:"tapis"},
+    {title:"Sangles / blocs de yoga", img:"https://contents.mediadecathlon.com/p123456/sangle.jpg", note:"accessoires de posture", ref:"tapis"}
+  ],
+  "Musculation":[
+    {title:"Bandes élastiques / résistance", img:"https://contents.mediadecathlon.com/p124567/elastique.jpg", note:"pour renfo & assistance", ref:"bandes"},
+    {title:"Haltères ajustables (kit)", img:"https://contents.mediadecathlon.com/p124568/haltere.jpg", note:"pour progression de charge", ref:"bandes"}
+  ],
+  "Course":[
+    {title:"Chaussures Running (Kiprun...) ", img:"https://contents.mediadecathlon.com/p129999/chaussure_running.jpg", note:"chaussures adaptées à ta foulée", ref:"running"},
+    {title:"Ceinture hydratation / montre GPS", img:"https://contents.mediadecathlon.com/p129990/ceinture_running.jpg", note:"suivi & hydratation", ref:"running"}
+  ],
+  "Natation":[
+    {title:"Lunettes de natation anti-buée", img:"https://contents.mediadecathlon.com/p130001/lunettes.jpg", note:"confort & étanchéité", ref:"natation"},
+    {title:"Bonnet & palmes courtes", img:"https://contents.mediadecathlon.com/p130002/bonnet.jpg", note:"entraînement technique", ref:"natation"}
+  ],
+  "Cyclisme":[
+    {title:"Cuissard & gants", img:"https://contents.mediadecathlon.com/p130010/cuissard.jpg", note:"confort & protection", ref:"cycling"},
+    {title:"Capteur cadence / support téléphone", img:"https://contents.mediadecathlon.com/p130011/capteur.jpg", note:"mesurer cadence", ref:"cycling"}
+  ]
+};
+
+/* ---------- UI helpers ---------- */
+function genererProfil(){
+  const required = ["niveau","sport","objectif","seances","motivation"];
+  const data = {};
+  document.querySelectorAll("input[type=radio]:checked").forEach(i=>data[i.name]=i.value);
+
+  const missing = required.filter(k=>!(k in data));
+  const err = document.getElementById("err");
+  if(missing.length){ err.textContent = "Réponds à toutes les questions pour générer le profil."; return; }
+  err.textContent = "";
+
+  // avatar icon
+  const iconMap = {"Musculation":"🏋️","Course":"🏃","Yoga":"🧘","Cyclisme":"🚴","Natation":"🏊"};
+  document.getElementById("avatarIcon").textContent = iconMap[data.sport] || "🏃";
+
+  // title
+  let title = "";
+  if(data.objectif==="Perte de poids") title = "Brûleur de calories 🔥";
+  else if(data.objectif==="Performance") title = "Compétiteur 🏆";
+  else if(data.objectif==="Souplesse") title = "Explorateur du mouvement 🧘";
+  else if(data.objectif==="Bien-être") title = "Sportif bien-être 🌿";
+  else title = "Sportif polyvalent 💪";
+
+  document.getElementById("profileTitle").textContent = title;
+
+  // tags
+  const tagsRow = document.getElementById("tagsRow");
+  tagsRow.innerHTML = '';
+  ["objectif","niveau","seances","motivation"].forEach(k=>{
+    const span = document.createElement("span");
+    span.className="tag";
+    span.textContent = (k==="seances"? "⏱ "+data[k]+" / sem" : (k==="niveau"? "⭐ "+data[k] : (k==="motivation"? "💪 "+data[k] : "🎯 "+data[k])) );
+    tagsRow.appendChild(span);
+  });
+
+  // summary
+  let summary = `Sport: ${data.sport} • Objectif: ${data.objectif} • Niveau: ${data.niveau}`;
+  document.getElementById("summary").textContent = summary;
+
+  // show panel
+  const panel = document.getElementById("resultPanel");
+  panel.style.display = "block";
+
+  // fill mouvements list according to sport (Niveau 2)
+  const mouvArea = document.getElementById("mouvementsArea");
+  const mouvList = document.getElementById("mouvementsList");
+  const sel = document.getElementById("movementSelect");
+  sel.innerHTML = '<option value="">— choisir —</option>';
+  mouvList.innerHTML = '';
+  const arr = movementsBySport[data.sport] || [];
+  arr.forEach(m=>{
+    mouvList.innerHTML += `<div class="small">• ${m.name}</div>`;
+    const opt = document.createElement("option");
+    opt.value = m.id;
+    opt.text = m.name;
+    sel.appendChild(opt);
+  });
+  mouvArea.style.display = 'block';
+
+  // clear previous instructions
+  document.getElementById("instructionsArea").style.display = "none";
+  document.getElementById("instructionText").innerHTML = "";
+  document.getElementById("illustration").innerHTML = "";
+  document.getElementById("practicalTips").innerHTML = "";
+  document.getElementById("productList").innerHTML = "";
+}
+
+/* Show tailored instructions + illustration + products (Niveau 2-4) */
+function afficherInstruction(){
+  const sel = document.getElementById("movementSelect");
+  const movId = sel.value;
+  if(!movId){ alert("Choisis un mouvement."); return; }
+
+  // find current sport
+  const sport = (document.querySelector("input[name=sport]:checked") || {}).value;
+  if(!sport){ alert("Génère d'abord le profil."); return; }
+
+  const mov = (movementsBySport[sport] || []).find(m=>m.id===movId);
+  if(!mov){ alert("Mouvement introuvable."); return; }
+
+  // build instruction text (Niveau 2)
+  const instText = `<strong>${mov.name}</strong><br><br>
+  ${mov.keyPoints.map((p,i)=>`<div class="step"><strong>Étape ${i+1}:</strong> ${p}</div>`).join('')}
+
+  <div style="margin-top:8px;" class="small muted">Séries recommandées : ${
+    sport==="Musculation" ? "3 séries de 6–12 répétitions (selon objectif)" :
+    sport==="Course" ? "Séance selon intensité : 20–40 min" :
+    sport==="Yoga" ? "3–6 répétitions de 30–60s par posture" : "3 séries contrôlées"
+  }</div>
+  `;
+
+  document.getElementById("instructionText").innerHTML = instText;
+
+  // Illustration (Niveau 3) — simple inline SVGs and animated hints
+  const illu = document.getElementById("illustration");
+  illu.innerHTML = "";
+  const svgBox = document.createElement("div"); svgBox.className="svg-box";
+  svgBox.innerHTML = getSVGForMovement(movId, sport);
+  const steps = document.createElement("div"); steps.style.flex="1";
+  steps.innerHTML = mov.keyPoints.map((p,i)=>`<div class="step"><strong>${i+1}.</strong> ${p}</div>`).join("");
+  illu.appendChild(svgBox); illu.appendChild(steps);
+
+  // Practical tips (short)
+  const tips = generateTips(sport,movId);
+  document.getElementById("practicalTips").innerHTML = tips;
+
+  // Products suggestions (Niveau 4)
+  const prodList = document.getElementById("productList");
+  prodList.innerHTML = "";
+  (productsBySport[sport] || []).forEach(p=>{
+    const d = document.createElement("div"); d.className="product";
+    d.innerHTML = `<img src="${p.img}" alt="${p.title}" onerror="this.style.display='none'"/>
+      <div>
+        <div style="font-weight:700">${p.title}</div>
+        <div class="small muted">${p.note}</div>
+        <div style="margin-top:6px;"><a target="_blank" rel="noopener noreferrer" href="${getDecathlonLinkForRef(p.ref)}">Voir sur Decathlon</a></div>
+      </div>`;
+    prodList.appendChild(d);
+  });
+
+  // show instructions area
+  document.getElementById("instructionsArea").style.display = "block";
+}
+
+/* Small helper that returns an approximate Decathlon link by ref (these are generic landing pages) */
+function getDecathlonLinkForRef(ref){
+  switch(ref){
+    case "tapis": return "https://www.decathlon.fr/tous-les-sports/yoga/tapis-de-yoga";
+    case "bandes": return "https://www.decathlon.fr/vc/bande-de-resistance-elastique";
+    case "running": return "https://www.decathlon.fr/tous-les-sports/running-route/chaussures-running";
+    case "natation": return "https://www.decathlon.fr/tous-les-sports/natation/lunettes-de-natation-et-masques";
+    default: return "https://www.decathlon.fr";
+  }
+}
+
+/* simple SVG illustrations for some movements (Niveau 3) */
+function getSVGForMovement(id, sport){
+  // basic stick figure illustrations — intentionally simple + animated
+  if(id==="squat"){
+    return `
+      <svg class="animate-updown" width="140" height="140" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#1f2937" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="60" cy="22" r="8" />
+          <path d="M60 30 v18" />
+          <path d="M60 48 l-14 24" />
+          <path d="M60 48 l14 24" />
+          <path d="M46 72 l-8 18" />
+          <path d="M74 72 l8 18" />
+        </g>
+        <line x1="20" y1="100" x2="100" y2="100" stroke="#cbd5e1" stroke-width="2" />
+      </svg>`;
+  }
+  if(id==="deadlift"){
+    return `
+      <svg class="animate-updown" width="140" height="140" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#111827" stroke-width="3" fill="none" stroke-linecap="round">
+          <circle cx="60" cy="20" r="7" />
+          <path d="M60 27 v18" />
+          <path d="M60 45 l-18 28" />
+          <path d="M60 45 l18 28" />
+          <rect x="28" y="76" width="64" height="6" rx="2" />
+        </g>
+      </svg>`;
+  }
+  if(id==="push"){
+    return `
+      <svg class="animate-updown" width="140" height="140" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#0f172a" stroke-width="3" fill="none">
+          <circle cx="60" cy="16" r="7" />
+          <path d="M60 23 v12" />
+          <path d="M60 35 l-26 18" />
+          <path d="M60 35 l26 18" />
+          <rect x="18" y="68" width="84" height="6" rx="2" />
+        </g>
+      </svg>`;
+  }
+  if(id==="downward"){
+    return `
+      <svg class="animate-updown" width="140" height="140" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#0b1220" stroke-width="3" fill="none">
+          <circle cx="24" cy="24" r="6" />
+          <path d="M24 30 l28 28" />
+          <path d="M84 30 l-28 28" />
+          <path d="M24 52 l0 30" />
+          <path d="M84 52 l0 30" />
+        </g>
+      </svg>`;
+  }
+  if(id==="plank" || id==="kick" || id==="catch"){
+    return `
+      <svg class="animate-updown" width="140" height="140" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#0b1220" stroke-width="3" fill="none">
+          <rect x="18" y="50" width="84" height="8" rx="3" />
+          <circle cx="30" cy="40" r="6" />
+          <path d="M36 40 h40" />
+        </g>
+      </svg>`;
+  }
+  // default tiny runner
+  return `<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#0b1220" stroke-width="3" fill="none"><circle cx="28" cy="22" r="6"/><path d="M34 28 l20 10"/><path d="M54 38 l10 20"/><path d="M44 38 l-8 18"/></g>
+  </svg>`;
+}
+
+/* Practical tips generator */
+function generateTips(sport, movId){
+  let tips = "";
+  if(sport==="Musculation"){
+    tips = "Échauffe 8–10 min, commence léger, privilégie la technique. Récupération 48h entre gros groupes musculaires.";
+    if(movId==="squat") tips += " Astuce : garde la charge proche du centre de gravité (barre proche du haut du dos).";
+    if(movId==="deadlift") tips += " Conseil kiné : pense à contracter les abdos avant la remontée.";
+  }
+  if(sport==="Yoga"){
+    tips = "Respiration contrôlée (Ujjayi si possible), cherche l'alignement avant l'amplitude.";
+  }
+  if(sport==="Course"){
+    tips = "Commence en trottinant 8–12 min, progressive overload sur distance ou intensité, récup active.";
+  }
+  if(sport==="Natation"){
+    tips = "Technique > volume. Fais des éducatifs (15–20% de la séance) pour améliorer le catch.";
+  }
+  if(sport==="Cyclisme"){
+    tips = "Réglage de la selle / position avant tout. Travail de cadence en intervalles courts.";
+  }
+  return tips;
+}
+
+/* Export JSON */
+function exportJSON(){
+  const data = {};
+  document.querySelectorAll("input[type=radio]:checked").forEach(i=>data[i.name]=i.value);
+  if(Object.keys(data).length===0){ alert("Rien à exporter (génère d'abord ton profil)."); return; }
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='profil_sportif.json'; document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
